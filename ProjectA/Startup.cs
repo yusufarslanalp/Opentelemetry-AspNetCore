@@ -51,6 +51,19 @@ namespace ProjectA
                     await context.Response.WriteAsync("Hello From Project A\n");
                     await context.Response.WriteAsync(await content);
                 });
+
+                endpoints.MapGet("/returnerror/{isError:alpha}", async context =>
+                {
+                    string isError = context.Request.RouteValues["isError"].ToString();
+                    if( isError == "true" )
+                    {
+                        String nullStr = null;
+                        Console.WriteLine( nullStr.Length );
+                    }
+
+                    await context.Response.WriteAsync($"value of is error: {isError}");
+                });
+
             });
         }
     }

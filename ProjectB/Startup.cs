@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Trace;
 using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ProjectB
@@ -46,6 +47,25 @@ namespace ProjectB
                     Activity.Current?.AddEvent(new ActivityEvent("HelloProject", DateTimeOffset.UtcNow));
                     await context.Response.WriteAsync("Hello From Project B");
                 });
+                endpoints.MapGet("/fast", async context =>
+                {
+                    await context.Response.WriteAsync("Very fast response\n");
+                });
+                endpoints.MapGet("/slow", async context =>
+                {
+                    Thread.Sleep( 2000 );
+                    await context.Response.WriteAsync("Slow response\n");
+                });
+                endpoints.MapGet("/greet/{name:alpha}", async context =>
+                {
+                    string name = context.Request.RouteValues["name"].ToString();
+                    if (name == "error")
+                    {
+                        throw new Exception();
+                    }
+                    await context.Response.WriteAsync($"Hello {name}\n");
+                });
+
             });
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -50,6 +51,30 @@ namespace ProjectA
 
                     await context.Response.WriteAsync("Hello From Project A\n");
                     await context.Response.WriteAsync(await content);
+                });
+
+                endpoints.MapGet("/testAPI", async context =>
+                {
+
+                    using var client = context.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("ProjectB");
+                    var fastResponse = client.GetStringAsync("/fast");
+                    var slowResponse = client.GetStringAsync("/slow");
+                    //var greetResponse = client.GetStringAsync("/greet/error");
+                    Task<HttpResponseMessage> greetResponse = client.GetAsync("/greet/error");
+
+                    await context.Response.WriteAsync("Hello From Project A\n");
+                    await context.Response.WriteAsync(await fastResponse);
+                    await context.Response.WriteAsync(await slowResponse);
+
+                    greetResponse.Wait();
+                    bool success = greetResponse.Result.StatusCode == System.Net.HttpStatusCode.OK;
+                    if ( success == false )
+                    {
+                        await context.Response.WriteAsync( "error in greeting" );
+                    }
+                    
+
+
                 });
 
                 endpoints.MapGet("/returnerror/{isError:alpha}", async context =>

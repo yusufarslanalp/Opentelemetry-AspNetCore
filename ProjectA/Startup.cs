@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenTelemetry.Trace;
+using OpenTelemetry.Logs;
+using System.Threading;
+using Jaeger;
+using Microsoft.Extensions.Logging;
 
 namespace ProjectA
 {
@@ -26,13 +30,15 @@ namespace ProjectA
             {
                 builder.AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
+                //.AddProcessor()
                 .AddJaegerExporter();
             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env )
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -51,6 +57,19 @@ namespace ProjectA
 
                     await context.Response.WriteAsync("Hello From Project A\n");
                     await context.Response.WriteAsync(await content);
+
+
+                    //Thread.Sleep(7000);
+
+                    /*
+                    content = client.GetStringAsync("/");
+                    await context.Response.WriteAsync(await content);
+                    content = client.GetStringAsync("/");
+                    await context.Response.WriteAsync(await content);
+                    content = client.GetStringAsync("/");
+                    await context.Response.WriteAsync(await content);
+                    */
+
                 });
 
                 endpoints.MapGet("/testAPI", async context =>
@@ -59,7 +78,6 @@ namespace ProjectA
                     using var client = context.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("ProjectB");
                     var fastResponse = client.GetStringAsync("/fast");
                     var slowResponse = client.GetStringAsync("/slow");
-                    //var greetResponse = client.GetStringAsync("/greet/error");
                     Task<HttpResponseMessage> greetResponse = client.GetAsync("/greet/error");
 
                     await context.Response.WriteAsync("Hello From Project A\n");
@@ -71,6 +89,13 @@ namespace ProjectA
                     if ( success == false )
                     {
                         await context.Response.WriteAsync( "error in greeting" );
+                    }
+                    else
+                    {
+                        Task<string> taskStr = greetResponse.Result.Content.ReadAsStringAsync();
+                        taskStr.Wait();
+
+                        await context.Response.WriteAsync( taskStr.Result );
                     }
                     
 
@@ -85,6 +110,8 @@ namespace ProjectA
                         String nullStr = null;
                         Console.WriteLine( nullStr.Length );
                     }
+
+                    
 
                     await context.Response.WriteAsync($"value of is error: {isError}");
                 });

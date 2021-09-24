@@ -118,6 +118,20 @@ namespace ProjectA
                     await context.Response.WriteAsync($"value of is error: {isError}");
                 });
 
+
+                endpoints.MapGet("/earthquakeAPI", async context =>
+                {
+                    Console.WriteLine("HEREEEEEEEEEEEEEEEEEEEEEEEE11");
+
+                    using var client = context.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("name");
+                    HttpResponseMessage response = await client.GetAsync("https://earthquake.usgs.gov/fdsnws/event/1/count?starttime=2020-09-24T08:03:57");
+                    response.EnsureSuccessStatusCode();
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    await context.Response.WriteAsync("Hello From Project A\n");
+                    await context.Response.WriteAsync(responseBody);
+                });
+
             });
         }
     }

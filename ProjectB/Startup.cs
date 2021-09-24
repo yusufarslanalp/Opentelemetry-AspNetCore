@@ -23,12 +23,12 @@ namespace ProjectB
         {
             Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
-            services.AddOpenTelemetryTracing(builder =>
+            /*services.AddOpenTelemetryTracing(builder =>
             {
                 builder.AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
                     .AddJaegerExporter(  );
-            });
+            });*/
 
             //services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["ConnectionStrings:Default"]));
         }
@@ -52,7 +52,7 @@ namespace ProjectB
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    using var connection = new MySqlConnection("server=localhost;user=root;password=;database=test");
+                    /*using var connection = new MySqlConnection("server=localhost;user=root;password=;database=test");
 
                     await connection.OpenAsync();
 
@@ -63,7 +63,8 @@ namespace ProjectB
                         var value = reader.GetValue(0);
                         Console.WriteLine(value);
                         // do something with 'value'
-                    }
+                    }*/
+
 
                     Console.WriteLine( "Service B use a LOG" );
                     context.Response.Headers.Add("Request-Id", Activity.Current?.TraceId.ToString() ?? string.Empty);

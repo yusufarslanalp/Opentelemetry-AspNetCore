@@ -50,6 +50,8 @@ namespace ProjectA
             {
                 endpoints.MapGet("/", async context =>
                 {
+                    Thread.Sleep(2000);
+
                     context.Response.Headers.Add("Request-Id", Activity.Current?.TraceId.ToString() ?? string.Empty);
 
                     using var client = context.RequestServices.GetRequiredService<IHttpClientFactory>().CreateClient("ProjectB");
@@ -59,7 +61,7 @@ namespace ProjectA
                     await context.Response.WriteAsync(await content);
 
 
-                    //Thread.Sleep(7000);
+                    
 
                     /*
                     content = client.GetStringAsync("/");

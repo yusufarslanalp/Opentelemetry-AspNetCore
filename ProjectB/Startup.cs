@@ -23,14 +23,15 @@ namespace ProjectB
         {
             Activity.DefaultIdFormat = ActivityIdFormat.W3C;
 
-            /*services.AddOpenTelemetryTracing(builder =>
+            services.AddOpenTelemetryTracing(builder =>
             {
                 builder.AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddJaegerExporter(  );
-            });*/
+                    .AddJaegerExporter();
+                    //.AddMySqlDataInstrumentation();
+                    
+            });/**/
 
-            //services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["ConnectionStrings:Default"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,7 +53,9 @@ namespace ProjectB
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    /*using var connection = new MySqlConnection("server=localhost;user=root;password=;database=test");
+                    new EF_mysql_conn();
+
+                    using var connection = new MySqlConnection("server=localhost;user=root;password=;database=test");
 
                     await connection.OpenAsync();
 
@@ -63,7 +66,7 @@ namespace ProjectB
                         var value = reader.GetValue(0);
                         Console.WriteLine(value);
                         // do something with 'value'
-                    }*/
+                    }/**/
 
 
                     Console.WriteLine( "Service B use a LOG" );

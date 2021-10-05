@@ -8,8 +8,8 @@ Run projectB
 
 Run ProjectA  
 
-go to http://localhost:16686/search for viewing taraces
+Go to http://localhost:16686/search for viewing taraces
 
 <h3>More Info</h3>
 
-visit official website of opentelemetry from [here](https://opentelemetry.io/)
+Visit official website of opentelemetry from [here](https://opentelemetry.io/)

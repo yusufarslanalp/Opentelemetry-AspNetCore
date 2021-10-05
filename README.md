@@ -1,6 +1,6 @@
 # Opentelemetry-AspNetCore
 
-##Usage <h1> tag
+<h1>Usage </h1>
 
 With "docker-compose up" command create the container  
 

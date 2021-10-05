@@ -8,7 +8,9 @@ namespace ProjectB
 {
     public class EF_mysql_conn
     {
-        public EF_mysql_conn()
+        string product;
+
+        public EF_mysql_conn( string product )
         {
             Console.WriteLine( "In constructor" );
 
@@ -16,8 +18,8 @@ namespace ProjectB
 
             var sale1 = new Sale()
             {
-                Product = "clio",
-                Price = 200000
+                Product = product,
+                Price = 300
             };
 
             context.Add<Sale>(sale1);

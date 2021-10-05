@@ -6171,11 +6171,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\yusuf\\Desktop\\OpenTelemetry\\opentelemetry-aspnetcore\\ProjectB\\ProjectB.csproj",
+      "projectUniqueName": "C:\\Users\\yusuf\\Desktop\\opentelemetry-aspnetcore\\ProjectB\\ProjectB.csproj",
       "projectName": "ProjectB",
-      "projectPath": "C:\\Users\\yusuf\\Desktop\\OpenTelemetry\\opentelemetry-aspnetcore\\ProjectB\\ProjectB.csproj",
+      "projectPath": "C:\\Users\\yusuf\\Desktop\\opentelemetry-aspnetcore\\ProjectB\\ProjectB.csproj",
       "packagesPath": "C:\\Users\\yusuf\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\yusuf\\Desktop\\OpenTelemetry\\opentelemetry-aspnetcore\\ProjectB\\obj\\",
+      "outputPath": "C:\\Users\\yusuf\\Desktop\\opentelemetry-aspnetcore\\ProjectB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\yusuf\\AppData\\Roaming\\NuGet\\NuGet.Config",

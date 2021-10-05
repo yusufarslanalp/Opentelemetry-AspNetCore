@@ -53,29 +53,8 @@ namespace ProjectB
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    new EF_mysql_conn();
-
-                    using var connection = new MySqlConnection("server=localhost;user=root;password=;database=test");
-
-                    await connection.OpenAsync();
-
-                    using var command = new MySqlCommand("SELECT * FROM customer;", connection);
-                    using var reader = await command.ExecuteReaderAsync();
-                    while (await reader.ReadAsync())
-                    {
-                        var value = reader.GetValue(0);
-                        Console.WriteLine(value);
-                        // do something with 'value'
-                    }/**/
-
-
                     Console.WriteLine( "Service B use a LOG" );
-                    context.Response.Headers.Add("Request-Id", Activity.Current?.TraceId.ToString() ?? string.Empty);
-
-                    await Task.Delay(new Random().Next(100, 1000));
                     Activity.Current?.AddEvent(new ActivityEvent("HelloProject", DateTimeOffset.UtcNow));
-                    Activity.Current?.AddEvent(new ActivityEvent("Service B use a LOG wit Activity Object", DateTimeOffset.UtcNow)); ///////////
-                    
                     await context.Response.WriteAsync("Hello From Project B");
                 });
                 endpoints.MapGet("/fast", async context =>
@@ -95,6 +74,30 @@ namespace ProjectB
                         throw new Exception();
                     }
                     await context.Response.WriteAsync($"Hello {name}\n");
+                });
+                endpoints.MapGet("/connect_MySQL", async context =>
+                {
+                    using var connection = new MySqlConnection("server=localhost;user=root;password=;database=test");
+
+                    await connection.OpenAsync();
+
+                    using var command = new MySqlCommand("SELECT * FROM customer;", connection);
+                    using var reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        var value = reader.GetValue(0);
+                        Console.WriteLine(value);
+                        // do something with 'value'
+                    }
+
+                    await context.Response.WriteAsync("ServiceB connected to Mysql");
+                });
+                endpoints.MapGet("/EF_MySQL/{product}", async context =>
+                {
+                    string product = context.Request.RouteValues["product"].ToString();
+                    Console.WriteLine( product );
+                    new EF_mysql_conn( product );
+                    await context.Response.WriteAsync("ServiceB connected Mysql with entity framework");
                 });
 
             });

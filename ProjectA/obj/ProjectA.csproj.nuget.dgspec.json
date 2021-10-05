@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\yusuf\\Desktop\\OpenTelemetry\\opentelemetry-aspnetcore\\ProjectA\\ProjectA.csproj": {}
+    "C:\\Users\\yusuf\\Desktop\\opentelemetry-aspnetcore\\ProjectA\\ProjectA.csproj": {}
   },
   "projects": {
-    "C:\\Users\\yusuf\\Desktop\\OpenTelemetry\\opentelemetry-aspnetcore\\ProjectA\\ProjectA.csproj": {
+    "C:\\Users\\yusuf\\Desktop\\opentelemetry-aspnetcore\\ProjectA\\ProjectA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\yusuf\\Desktop\\OpenTelemetry\\opentelemetry-aspnetcore\\ProjectA\\ProjectA.csproj",
+        "projectUniqueName": "C:\\Users\\yusuf\\Desktop\\opentelemetry-aspnetcore\\ProjectA\\ProjectA.csproj",
         "projectName": "ProjectA",
-        "projectPath": "C:\\Users\\yusuf\\Desktop\\OpenTelemetry\\opentelemetry-aspnetcore\\ProjectA\\ProjectA.csproj",
+        "projectPath": "C:\\Users\\yusuf\\Desktop\\opentelemetry-aspnetcore\\ProjectA\\ProjectA.csproj",
         "packagesPath": "C:\\Users\\yusuf\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\yusuf\\Desktop\\OpenTelemetry\\opentelemetry-aspnetcore\\ProjectA\\obj\\",
+        "outputPath": "C:\\Users\\yusuf\\Desktop\\opentelemetry-aspnetcore\\ProjectA\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\yusuf\\AppData\\Roaming\\NuGet\\NuGet.Config",
